@@ -49,6 +49,7 @@ namespace UserManagement.Controllers
                 return StatusCode(500, "An error occurred while processing the request.");
             }
         }
+        [HttpGet]
         public Task<string> GenerateToken(UserResponseModel userResponseModel)
         {
             try
