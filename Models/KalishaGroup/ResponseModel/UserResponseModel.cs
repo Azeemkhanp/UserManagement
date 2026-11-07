@@ -1,6 +1,6 @@
-﻿using UserManagement.Models.RequestModel;
+﻿using UserManagement.Models.KalishaGroup.RequestModel;
 
-namespace UserManagement.Models.ResponseModel
+namespace UserManagement.Models.KalishaGroup.ResponseModel
 {
     public class UserResponseModel
     {

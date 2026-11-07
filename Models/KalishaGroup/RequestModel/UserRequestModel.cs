@@ -1,6 +1,6 @@
-﻿using UserManagement.CommanFiles;
+﻿using UserManagement.CommanFiles.KalishaGroup;
 
-namespace UserManagement.Models.RequestModel
+namespace UserManagement.Models.KalishaGroup.RequestModel
 {
     public class UserRequestModel: BaseModel
     {

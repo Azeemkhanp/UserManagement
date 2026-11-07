@@ -2,9 +2,9 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using UserManagement.Models.ResponseModel;
+using UserManagement.Models.KalishaGroup.ResponseModel;
 
-namespace UserManagement.CommanFiles
+namespace UserManagement.CommanFiles.KalishaGroup
 {
     public class HelperMethods
     {

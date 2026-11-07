@@ -1,4 +1,4 @@
-﻿namespace UserManagement.CommanFiles
+﻿namespace UserManagement.CommanFiles.KalishaGroup
 {
     public class BaseModel
     {
