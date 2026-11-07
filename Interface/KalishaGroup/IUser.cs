@@ -1,19 +1,25 @@
-﻿using UserManagement.Models.KalishaGroup.RequestModel;
-using UserManagement.Models.KalishaGroup.ResponseModel;
-
+﻿using UserManagement.CommanFiles.KalishaGroup;
+using UserManagement.DTOs.KalishaGroupDTOs.RequestDtos;
+using UserManagement.Models.KalishaGroup.RequestModel;
 namespace UserManagement.Interface.KalishaGroup
 {
     public interface IUser
     {
-        public Task<UserResponseModel> CreateUser(UserRequestModel userRequestModel);
-        public Task<UserResponseModel> GetUser(UserRequestModel userRequestModel);
-        public Task<UserResponseModel> UpdateUser(UserRequestModel userRequestModel);
-        public Task<UserResponseModel> DeleteUser(UserRequestModel userRequestModel);
-        public Task<UserResponseModel> GetAllUser(UserRequestModel userRequestModel);
-        public Task<UserResponseModel> GetUserById(UserRequestModel userRequestModel);
-        public Task<UserResponseModel> GetUserByEmail(UserRequestModel userRequestModel);
-        public Task<UserResponseModel> GetUserByPhone(UserRequestModel userRequestModel);
-        public Task<UserResponseModel> GetUserByUsername(UserRequestModel userRequestModel);
-        public Task<UserResponseModel> GetUserByRole(UserRequestModel userRequestModel);
+        public Task<RegisterUserDTOs> CreateUser(RegisterUserDTOs userRequestModel);
+        public Task<LoginResponseDTOs> Login(LoginDto userRequestModel);
+        public Task<BaseModel> UpdateUser(UpdateUserDTOs userRequestModel);
+
+        public Task<BaseModel> ChangePassword(UpdatePasswordRequestDto userRequestModel);
+        public Task<BaseModel> ForgotPassword(ForgotPasswordRequestDto userRequestModel);
+        public Task<BaseModel> ResetPassword(ResetPasswordRequestDto userRequestModel);
+
+        public Task<BaseModel> DeleteUser(User userRequestModel);
+        public Task<List<GetUserDtoBasedOnLogin>> GetAllUser(UserDtoBasedOnLoginRequest userRequestModel);
+        public Task<GetUserDtoBasedOnLogin> GetUserById(UserDtoBasedOnLoginRequest userRequestModel);
+        public Task<GetUserDtoBasedOnLogin> GetUserByEmail(UserDtoBasedOnLoginRequest userRequestModel);
+        public Task<GetUserDtoBasedOnLogin> GetUserByPhone(UserDtoBasedOnLoginRequest userRequestModel);
+        public Task<GetUserDtoBasedOnLogin> GetUserByUsername(UserDtoBasedOnLoginRequest userRequestModel);
+        public Task<List<GetUserDtoBasedOnLogin>> GetUserByRole(UserDtoBasedOnLoginRequest userRequestModel);
+        public Task<int> LogoutUser(string refreshToken);
     }
 }
