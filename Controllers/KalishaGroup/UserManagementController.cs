@@ -4,12 +4,11 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
-using UserManagement.CQRS.Command;
-using UserManagement.CQRS.Query;
-using UserManagement.Models.RequestModel;
-using UserManagement.Models.ResponseModel;
+using UserManagement.CQRS.KalishaGroup.Command;
+using UserManagement.Models.KalishaGroup.RequestModel;
+using UserManagement.Models.KalishaGroup.ResponseModel;
 
-namespace UserManagement.Controllers
+namespace UserManagement.Controllers.KalishaGroup
 {
     [ApiController]
     [Route("[controller]")]

@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace UserManagement.Models.RequestModel
+namespace UserManagement.Models.KalishaGroup.RequestModel
 {
     public class User
     {

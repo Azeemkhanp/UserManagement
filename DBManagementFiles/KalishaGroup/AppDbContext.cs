@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using UserManagement.Models.RequestModel;
+using UserManagement.Models.KalishaGroup.RequestModel;
 
-namespace UserManagement.DBManagementFiles
+namespace UserManagement.DBManagementFiles.KalishaGroup
 {
     public class AppDbContext : DbContext
     {

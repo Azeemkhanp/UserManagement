@@ -1,4 +1,4 @@
-﻿namespace UserManagement.Models.ResponseModel
+﻿namespace UserManagement.Models.KalishaGroup.ResponseModel
 {
     public class User
     {

@@ -1,7 +1,7 @@
-﻿using UserManagement.Models.RequestModel;
-using UserManagement.Models.ResponseModel;
+﻿using UserManagement.Models.KalishaGroup.RequestModel;
+using UserManagement.Models.KalishaGroup.ResponseModel;
 
-namespace UserManagement.Interface
+namespace UserManagement.Interface.KalishaGroup
 {
     public interface IUser
     {

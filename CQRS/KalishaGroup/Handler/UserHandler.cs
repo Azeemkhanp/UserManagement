@@ -1,10 +1,9 @@
 ﻿using MediatR;
-using UserManagement.CQRS.Command;
-using UserManagement.CQRS.Query;
-using UserManagement.Interface;
-using UserManagement.Models.ResponseModel;
+using UserManagement.CQRS.KalishaGroup.Command;
+using UserManagement.Interface.KalishaGroup;
+using UserManagement.Models.KalishaGroup.ResponseModel;
 
-namespace UserManagement.CQRS.Handler
+namespace UserManagement.CQRS.KalishaGroup.Handler
 {
     public class UserLoginHandler : IRequestHandler<UserLoginCommand, UserResponseModel>
     {
