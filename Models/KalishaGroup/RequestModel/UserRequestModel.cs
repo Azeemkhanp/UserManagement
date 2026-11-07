@@ -8,6 +8,7 @@ namespace UserManagement.Models.KalishaGroup.RequestModel
         public string? Email { get; set; }   
         
         public string? Password { get; set; }
+        public string? HashPassword { get; set; }
 
         public string? FirstName { get; set; }
 
@@ -18,6 +19,8 @@ namespace UserManagement.Models.KalishaGroup.RequestModel
         public string? Address { get; set; }
 
         public string? Token { get; set; }
+
+        public int IsActive { get; set; }
 
     }
 }

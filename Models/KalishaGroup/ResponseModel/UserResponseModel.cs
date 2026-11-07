@@ -2,7 +2,7 @@
 
 namespace UserManagement.Models.KalishaGroup.ResponseModel
 {
-    public class UserResponseModel
+    public class UserResponseModel: BaseModel
     {
         public UserResponseModel()
         {

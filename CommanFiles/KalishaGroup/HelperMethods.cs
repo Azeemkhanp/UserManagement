@@ -26,7 +26,7 @@ namespace UserManagement.CommanFiles.KalishaGroup
             {
                 new Claim(ClaimTypes.Name, userResponseModel.UserModel.UserName),
                 new Claim(ClaimTypes.Email, userResponseModel.UserModel.Email),
-                new Claim(ClaimTypes.Role, userResponseModel.UserModel.Role),        // fixed
+                new Claim(ClaimTypes.Role, userResponseModel.UserModel.UserRole),        // fixed
                 new Claim(ClaimTypes.GivenName, userResponseModel.UserModel.FirstName), // fixed
                 new Claim(ClaimTypes.Surname, userResponseModel.UserModel.LastName)     // fixed
             };
