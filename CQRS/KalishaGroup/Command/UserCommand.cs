@@ -1,39 +1,40 @@
 ﻿using MediatR;
+using UserManagement.CommanFiles.KalishaGroup;
+using UserManagement.DTOs.KalishaGroupDTOs.RequestDtos;
 using UserManagement.Models.KalishaGroup.RequestModel;
-using UserManagement.Models.KalishaGroup.ResponseModel;
 
 namespace UserManagement.CQRS.KalishaGroup.Command
 {
-    public class UserLoginCommand : IRequest<UserResponseModel>
+    public class UserLoginCommand : IRequest<LoginResponseDTOs>
     {
-        public UserRequestModel ReqModel { get; set; }
+        public LoginDto ReqModel { get; set; }
     }
-    public class UserRegisterCommand : IRequest<UserResponseModel>
+    public class UserRegisterCommand : IRequest<RegisterUserDTOs>
     {
-        public UserRequestModel ReqModel { get; set; }
+        public RegisterUserDTOs ReqModel { get; set; }
     }
-    public class UserLogoutCommand : IRequest<UserResponseModel>
+    public class UserLogoutCommand : IRequest<int>
     {
-        public UserRequestModel ReqModel { get; set; }
+        public string RefreshToken { get; set; }
     }
-    public class UserUpdateProfileCommand : IRequest<UserResponseModel>
+    public class UserUpdateProfileCommand : IRequest<BaseModel>
     {
-        public UserRequestModel ReqModel { get; set; }
+        public UpdateUserDTOs ReqModel { get; set; }
     }
-    public class UserChangePasswordCommand : IRequest<UserResponseModel>
+    public class UserChangePasswordCommand : IRequest<BaseModel>
     {
-        public UserRequestModel ReqModel { get; set; }
+        public UpdatePasswordRequestDto ReqModel { get; set; }
     }
-    public class UserForgotPasswordCommand : IRequest<UserResponseModel>
+    public class UserForgotPasswordCommand : IRequest<BaseModel>
     {
-        public UserRequestModel ReqModel { get; set; }
+        public ForgotPasswordRequestDto ReqModel { get; set; }
     }
-    public class UserResetPasswordCommand : IRequest<UserResponseModel>
+    public class UserResetPasswordCommand : IRequest<BaseModel>
     {
-        public UserRequestModel ReqModel { get; set; }
+        public ResetPasswordRequestDto ReqModel { get; set; }
     }
-    public class UserDeleteAccountCommand : IRequest<UserResponseModel>
+    public class UserDeleteAccountCommand : IRequest<BaseModel>
     {
-        public UserRequestModel ReqModel { get; set; }
+        public User ReqModel { get; set; }
     }
 }

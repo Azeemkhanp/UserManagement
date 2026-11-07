@@ -4,9 +4,11 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
+using UserManagement.CommanFiles.KalishaGroup;
 using UserManagement.CQRS.KalishaGroup.Command;
+using UserManagement.DTOs.KalishaGroupDTOs.RequestDtos;
+using UserManagement.Models;
 using UserManagement.Models.KalishaGroup.RequestModel;
-using UserManagement.Models.KalishaGroup.ResponseModel;
 
 namespace UserManagement.Controllers.KalishaGroup
 {
@@ -25,11 +27,11 @@ namespace UserManagement.Controllers.KalishaGroup
         }                     
 
         [HttpPost("UserLogin")]
-        public async Task<IActionResult> UserLogin(UserRequestModel ReqModel)
+        public async Task<IActionResult> UserLogin(LoginDto ReqModel)
         {
             try
             {
-                UserResponseModel userResponseModel = new UserResponseModel();
+                LoginResponseDTOs userResponseModel = new LoginResponseDTOs();
                 userResponseModel = await _mediator.Send(new UserLoginCommand { ReqModel = ReqModel });
                 if (userResponseModel == null)
                 {
@@ -37,7 +39,7 @@ namespace UserManagement.Controllers.KalishaGroup
                 }
                 else
                 {
-                    userResponseModel.UserModel.Token = await GenerateToken(userResponseModel);
+                    userResponseModel.AccessToken = await GenerateToken(userResponseModel);
                 }
 
                 return Ok(userResponseModel);
@@ -49,7 +51,7 @@ namespace UserManagement.Controllers.KalishaGroup
             }
         }
         [HttpGet]
-        public Task<string> GenerateToken(UserResponseModel userResponseModel)
+        public Task<string> GenerateToken(LoginResponseDTOs userResponseModel)
         {
             try
             {
@@ -60,7 +62,14 @@ namespace UserManagement.Controllers.KalishaGroup
 
                 var claims = new[]
                 {
-                new Claim(ClaimTypes.Name, userResponseModel.UserModel.UserName)
+                 new Claim(JwtRegisteredClaimNames.Sub,_configuration["jwt:Subject"]),
+                 new Claim(JwtRegisteredClaimNames.GivenName, userResponseModel.Username),
+                 new Claim(JwtRegisteredClaimNames.Jti,Guid.NewGuid().ToString()),
+                 new Claim(JwtRegisteredClaimNames.Iat,DateTime.UtcNow.ToString()),
+                 new Claim("UserID",userResponseModel.UserId.ToString()),
+                 new Claim("UserName",userResponseModel.Username.ToString()),
+                 new Claim("RoleName",userResponseModel.Role.ToString()),
+                 new Claim("RoleId",userResponseModel.RoleId.ToString())
                  };
 
                 var token = new JwtSecurityToken(
@@ -81,12 +90,11 @@ namespace UserManagement.Controllers.KalishaGroup
             }
         }
         [HttpPost("UserRegister")]
-        public async Task<IActionResult> UserRegister(UserResponseModel userResponseModel)
+        public async Task<IActionResult> UserRegister(RegisterUserDTOs userResponseModel)
         {
             try
             {
-                UserResponseModel Res = new UserResponseModel();
-                Res = await _mediator.Send(new UserRegisterCommand { ReqModel = userResponseModel.UserModel });
+                var  Res = await _mediator.Send(new UserRegisterCommand { ReqModel = userResponseModel });
                 return Ok(Res);
             }
             catch(Exception ex)
@@ -96,12 +104,11 @@ namespace UserManagement.Controllers.KalishaGroup
             }
         }
         [HttpPost("UserLogout")]
-        public async Task<IActionResult> UserLogout(UserResponseModel userResponseModel)
+        public async Task<IActionResult> UserLogout(string RefreshToken)
         {
             try
             {
-                UserResponseModel Res = new UserResponseModel();
-                Res = await _mediator.Send(new UserLogoutCommand { ReqModel = userResponseModel.UserModel });
+                var Res = await _mediator.Send(new UserLogoutCommand { RefreshToken = RefreshToken });
                 return Ok(Res);
             }
             catch (Exception ex)
@@ -111,12 +118,11 @@ namespace UserManagement.Controllers.KalishaGroup
             }
         }
         [HttpPost("UserUpdateProfile")]
-        public async Task<IActionResult> UserUpdateProfile(UserResponseModel userResponseModel)
+        public async Task<IActionResult> UserUpdateProfile(UpdateUserDTOs userResponseModel)
         {
             try
             {
-                UserResponseModel Res = new UserResponseModel();
-                Res = await _mediator.Send(new UserUpdateProfileCommand { ReqModel = userResponseModel.UserModel });
+                var Res = await _mediator.Send(new UserUpdateProfileCommand { ReqModel = userResponseModel });
                 return Ok(Res);
             }
             catch (Exception ex)
@@ -126,12 +132,12 @@ namespace UserManagement.Controllers.KalishaGroup
             }
         }
         [HttpPost("UserChangePassword")]
-        public async Task<IActionResult> UserChangePassword(UserResponseModel userResponseModel)
+        public async Task<IActionResult> UserChangePassword(UpdatePasswordRequestDto userResponseModel)
         {
             try
             {
-                UserResponseModel Res = new UserResponseModel();
-                Res = await _mediator.Send(new UserChangePasswordCommand { ReqModel = userResponseModel.UserModel });
+                BaseModel Res = new BaseModel();
+                Res = await _mediator.Send(new UserChangePasswordCommand { ReqModel = userResponseModel });
                 return Ok(Res);
             }
             catch (Exception ex)
@@ -141,12 +147,12 @@ namespace UserManagement.Controllers.KalishaGroup
             }
         }
         [HttpPost("UserForgotPassword")]
-        public async Task<IActionResult> UserForgotPassword(UserResponseModel userResponseModel)
+        public async Task<IActionResult> UserForgotPassword(ForgotPasswordRequestDto userResponseModel)
         {
             try
             {
-                UserResponseModel Res = new UserResponseModel();
-                Res = await _mediator.Send(new UserForgotPasswordCommand { ReqModel = userResponseModel.UserModel });
+                BaseModel Res = new BaseModel();
+                Res = await _mediator.Send(new UserForgotPasswordCommand { ReqModel = userResponseModel });
                 return Ok(Res);
             }
             catch (Exception ex)
@@ -156,12 +162,12 @@ namespace UserManagement.Controllers.KalishaGroup
             }
         }
         [HttpPost("UserResetPassword")]
-        public async Task<IActionResult> UserResetPassword(UserResponseModel userResponseModel)
+        public async Task<IActionResult> UserResetPassword(ResetPasswordRequestDto userResponseModel)
         {
             try
             {
-                UserResponseModel Res = new UserResponseModel();
-                Res = await _mediator.Send(new UserResetPasswordCommand { ReqModel = userResponseModel.UserModel });
+                BaseModel Res = new BaseModel();
+                Res = await _mediator.Send(new UserResetPasswordCommand { ReqModel = userResponseModel });
                 return Ok(Res);
             }
             catch (Exception ex)
@@ -171,12 +177,12 @@ namespace UserManagement.Controllers.KalishaGroup
             }
         }
         [HttpPost("UserDeleteAccount")]
-        public async Task<IActionResult> UserDeleteAccount(UserResponseModel userResponseModel)
+        public async Task<IActionResult> UserDeleteAccount(User userResponseModel)
         {
             try
             {
-                UserResponseModel Res = new UserResponseModel();
-                Res = await _mediator.Send(new UserDeleteAccountCommand { ReqModel = userResponseModel.UserModel });
+                BaseModel Res = new BaseModel();
+                Res = await _mediator.Send(new UserDeleteAccountCommand { ReqModel = userResponseModel });
                 return Ok(Res);
             }
             catch (Exception ex)
